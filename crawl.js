@@ -1,5 +1,12 @@
 const {JSDOM} = require('jsdom')
 
+async function crawlPage(currentURL) {
+    console.log(`actively crawling: ${currentURL}`)
+    const resp = await fetch(currentURL)
+
+    console.log(resp.text)
+}
+
 function getURLsFromHTML(htmlBody, baseURL) {
     const urls = []
     const dom = new JSDOM(htmlBody)
@@ -7,15 +14,13 @@ function getURLsFromHTML(htmlBody, baseURL) {
     for (const element of linkElements) {
         if (element.href.slice(0, 1) === '/') {
             try {
-                const urlObj = new URL(`${baseURL}${element.href}`)
-                urls.push(urlObj.href)
+                urls.push(new URL(element.href, baseURL).href)
             } catch(err) {
                 console.log("error with relative URL")
             }
         } else {
             try {
-                const urlObj = new URL(`${baseURL}${element.href}`)
-                urls.push(urlObj.href)
+                urls.push(new URL(element.href).href)
             } catch(err) {
                 console.log("error with relative URL")
             }
@@ -34,5 +39,6 @@ function normalizeURL(urlString) {
 
 module.exports = {
     normalizeURL,
-    getURLsFromHTML
+    getURLsFromHTML, 
+    crawlPage,
 }

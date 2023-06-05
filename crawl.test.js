@@ -65,7 +65,7 @@ test('getURLsFromHTML invalid', () => {
     const inputHTMLBody = `
 <html>
     <body>
-        <a href="invalid" 
+        <a href="invalidbhcbdhjb" 
             invalid URL
         </a>
     </body>
