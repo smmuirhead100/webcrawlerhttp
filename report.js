@@ -16,7 +16,6 @@ function printReport(pages) {
 
 function sortPages(pages) {
     pagesArray = Object.entries(pages)
-    console.log(pagesArray)
     pagesArray.sort((a, b) => {
             aHits = a[1]
             bHits = b[1]
